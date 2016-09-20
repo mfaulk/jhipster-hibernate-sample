@@ -1,0 +1,5 @@
+/** Part one */
+entity Unicorn {
+	name String,
+    color String
+}

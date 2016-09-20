@@ -1,0 +1,20 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "color",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160920234531",
+    "javadoc": "Part one",
+    "entityTableName": "unicorn",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
