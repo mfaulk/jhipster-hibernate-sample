@@ -12,4 +12,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface CarRepository extends JpaRepository<Car,Long> {
 
+    // finds all Cars with car.owner.id = id
+    List<Car> findByOwner_Id(Long id);
+
 }

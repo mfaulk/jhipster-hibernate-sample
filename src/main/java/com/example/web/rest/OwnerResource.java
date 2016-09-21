@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.example.domain.Car;
 import com.example.domain.Owner;
 
+import com.example.repository.CarRepository;
 import com.example.repository.OwnerRepository;
 import com.example.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -32,6 +33,10 @@ public class OwnerResource {
 
     @Inject
     private OwnerRepository ownerRepository;
+
+    @Inject
+    private CarRepository carRepository;
+
 
     /**
      * POST  /owners : Create a new owner.
@@ -107,13 +112,6 @@ public class OwnerResource {
     public ResponseEntity<Owner> getOwner(@PathVariable Long id) {
         log.debug("REST request to get Owner : {}", id);
         Owner owner = ownerRepository.findOne(id);
-        if (owner != null) {
-            Set<Car> cars = owner.getCars();
-            for(Car car: cars) {
-                log.debug("Owns car " + car.getModel() );
-            }
-        }
-
         return Optional.ofNullable(owner)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -135,6 +133,26 @@ public class OwnerResource {
         log.debug("REST request to delete Owner : {}", id);
         ownerRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("owner", id.toString())).build();
+    }
+
+
+    /**
+     * GET /owner/:id/cars   : get the cars owned by the "id" owner
+     *
+     * @param id the id of the owner
+     * @return the ResponseEntity with status 200 (OK) and the list of cars in body
+     */
+    @RequestMapping(value = "/owners/{id}/cars",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Car> getCarsByOwner(@PathVariable Long id) {
+        log.debug("REST request to get Cars by Owner : {}", id);
+        List<Car> cars = carRepository.findByOwner_Id(id);
+        for (Car car : cars) {
+            log.debug(car.getModel());
+        }
+        return cars;
     }
 
 }

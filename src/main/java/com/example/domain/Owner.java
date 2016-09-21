@@ -24,7 +24,7 @@ public class Owner implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner")
     @JsonIgnore
     private Set<Car> cars = new HashSet<>();
 
