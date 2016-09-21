@@ -1,0 +1,7 @@
+entity Company {
+	name String
+}
+
+relationship OneToMany {
+	Company{subordinate} to Company{parent}
+}

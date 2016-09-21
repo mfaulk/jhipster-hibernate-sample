@@ -27,7 +27,7 @@ import java.util.Optional;
 public class CarResource {
 
     private final Logger log = LoggerFactory.getLogger(CarResource.class);
-
+        
     @Inject
     private CarRepository carRepository;
 
