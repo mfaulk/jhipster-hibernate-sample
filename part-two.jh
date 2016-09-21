@@ -1,0 +1,11 @@
+entity Owner {
+    name String
+}
+
+entity Car {
+    model String
+}
+
+relationship OneToMany {
+  Owner{car} to Car{owner}
+}
