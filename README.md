@@ -51,29 +51,18 @@ Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in
     gulp test
 
 
+## API Usage
+
+
+Create an Owner by POSTing to `127.0.0.1:8080/api/owners` with body `{"name":"the-name-goes-here"}`.
+  
+Create a Car with relationship to an Owner by POSTing to 127.0.0.1:8080/api/cars, with a nested field for owner: 
     
-## Continuous Integration
+    {
+	    "model": "spaceship",
+	    "owner": {
+		    "id": <owner id>
+	    }
+    }
 
-To setup this project in Jenkins, use the following configuration:
-
-* Project name: `jhipsterhibernatetutorial`
-* Source Code Management
-    * Git Repository: `git@github.com:xxxx/jhipsterhibernatetutorial.git`
-    * Branches to build: `*/master`
-    * Additional Behaviours: `Wipe out repository & force clone`
-* Build Triggers
-    * Poll SCM / Schedule: `H/5 * * * *`
-* Build
-    * Invoke Maven / Tasks: `-Pprod clean package`
-* Post-build Actions
-    * Publish JUnit test result report / Test Report XMLs: `build/test-results/*.xml`
-
-[JHipster]: https://jhipster.github.io/
-[Gatling]: http://gatling.io/
-[Node.js]: https://nodejs.org/
-[Bower]: http://bower.io/
-[Gulp]: http://gulpjs.com/
-[BrowserSync]: http://www.browsersync.io/
-[Karma]: http://karma-runner.github.io/
-[Jasmine]: http://jasmine.github.io/2.0/introduction.html
-[Protractor]: https://angular.github.io/protractor/
+Retrieve the Cars associated with Owner 1 with a GET to `127.0.0.1:8080/api/owners/1/cars`
